@@ -13,44 +13,47 @@ body {
     text-align: center;
     margin: 10px 0px;
     font-family: Secular One;
-    font-size: 24px;
+    font-size: 20px;
 }
-#messageBox {
+#bannerBoxes {
     width: 50%;
     margin: auto;
     text-align: center;
-    font-size: 20px;
-
+    font-size: 24px;
 }
-#gameBody {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    margin-top: 10px;
-    grid-gap: 0;
-    height: 400px;
-    
+#upperGameBody {
+    display: flex;
+    border-bottom: 1px solid darkgoldenrod;
+    border-top: 1px solid darkgoldenrod;
+    padding: 30px;
+    margin-top: 30px;
 }
 #playerControls {
-    width: 80%;
-    margin: 0 auto;
+    width: 60%;
+    margin: 15px auto;
     text-align: center;
     text-transform: uppercase;
-    height: 200px;
-
+    
+}
+#controlsTitle {
+    text-align: center;
+}
+#controlButtons {
+    display: flex;
+    justify-content: space-between;
 }
 #rulesBox {
-    width: 80%;
+    width: 320px;
     margin: 0 auto;
-    text-align: center;
     height: 200px;
+    font-size: 20px;
 }
 #ruleTitle {
     font-size: 20px;
 }
 #reshuffleButton, #drawButton, #holdButton {
     display: inline;
-    width: 30%;
+    width: 33%;
     height: 40px;
     margin: 5px;
     font-weight: bold;
@@ -59,25 +62,27 @@ body {
     font-size: medium;
     font-weight: 100;
     letter-spacing: 1px;
+    padding: 0px 10px;
 }
 #drawButton, #holdButton {
     visibility: hidden;
 }
-.messageBox, .cardTotalTitle, .cardTotal, .cardContainer  {
-    padding: 5px;
-    
+#prizeBoxTitle, #prizeBox {
+    display: none;
 }
-/* #humanContainer {
-    display: flex;
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-    text-transform: uppercase;
-
-}*/
-
+#prizeBox {
+    border: 5px solid white;
+    padding: 5px;
+    margin-top: 10px;
+    color: yellow;
+}
+.messageBox, .cardTotalTitle, .cardTotal, .cardContainer, #controlsTitle  {
+    padding: 5px;
+    font-weight:bolder;
+}
 #computerContainer, #humanContainer {
-    width: 80%;
+    width: 50%;
+    min-height: 230px;
     margin: 30px auto;
     text-align: center;
     text-transform: uppercase;
@@ -87,7 +92,6 @@ body {
 }
 button {
     cursor: pointer;
-    
 }
 button:hover {
     background-color: lightgray;

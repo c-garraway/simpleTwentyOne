@@ -16,10 +16,26 @@
     <div id="title">
         <h1>Simple Twenty One</h1>
     </div>
-    <div id="messageBox">
-        <p>Welcome, Select new game to start</p>
+    <div id="bannerBoxes">
+        <p id="messageBox">Welcome, Select new game to start. The rules are listed at the bottom of the page.</p>
+        <p id="prizeBoxTitle">Your prize for winning this round is an amazing dad joke!</p>
+        <p id="prizeBox"></p>
     </div>
-    <div id="gameBody">
+    <div id="upperGameBody">
+        <div id="humanContainer">
+            <div class="messageBox" id="humanMessageBox">Waiting...</div>
+            <div class="cardTotalTitle">your cards total</div>
+            <div class="cardTotal" id="humanCardTotal">0</div>
+            <div class="cardContainer" id="humanCardContainer"></div>
+        </div>
+        <div id="computerContainer">
+            <div class="messageBox" id="computerMessageBox">Waiting...</div>
+            <div class="cardTotalTitle">computer cards total</div>
+            <div class="cardTotal" id="computerCardTotal">0</div>
+            <div class="cardContainer" id="computerCardContainer"></div>
+        </div>
+    </div>
+    <div id="lowerGameBody">
         <div id="playerControls">
             <div id="controlsTitle">
                 <p>Player Controls</p>
@@ -40,18 +56,7 @@
             <p>4. Player closest to twenty one wins</p>
             <p>5. Get a Prize if you win!</p>
         </div>
-        <div id="humanContainer">
-            <div class="messageBox" id="humanMessageBox">Waiting...</div>
-            <div class="cardTotalTitle">your cards total</div>
-            <div class="cardTotal" id="humanCardTotal">0</div>
-            <div class="cardContainer" id="humanCardContainer"></div>
-        </div>
-        <div id="computerContainer">
-            <div class="messageBox" id="computerMessageBox">Waiting...</div>
-            <div class="cardTotalTitle">computer cards total</div>
-            <div class="cardTotal" id="computerCardTotal">0</div>
-            <div class="cardContainer" id="computerCardContainer"></div>
-        </div>
     </div>
+   
 </body>
 </html>
