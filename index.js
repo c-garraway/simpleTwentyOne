@@ -8,27 +8,30 @@ const shuffleURL = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=
 const drawButton = document.querySelector('#drawButton');
 const shuffleButton = document.querySelector('#reshuffleButton');
 const holdButton = document.querySelector('#holdButton')
-
+const globalMessageBox = document.querySelector('#messageBox');
 const humanCardContainer = document.querySelector('#humanCardContainer');
 const computerCardContainer = document.querySelector('#computerCardContainer');
 
 const humanTotalBox = document.querySelector('#humanCardTotal');
 const computerTotalBox = document.querySelector('#computerCardTotal');
-const humanMessageBox = document.querySelector('humanMessageBox');
+const humanMessageBox = document.querySelector('#humanMessageBox');
 const computerMessageBox = document.querySelector('#computerMessageBox');
 
 
 let activeDeckID = '';
 let deckShuffled = false;
-let turn = 'human';
+let winner = '';
 let humanTotal = 0;
 let computerTotal = 0;
 let humanCards = [];
 let computerCards = [];
 let computerHolds = false;
 let humanHolds = false;
+let computerBust = false;
+let humanBust = false;
 
-class deckOfCards {
+// DeckOfCards API calls TODO: stream line drawCard method
+class DeckOfCards {
     constructor() {
         this._baseURL = 'https://deckofcardsapi.com/api/deck/';
         this._drawEndURL = '/draw/?count=1';
@@ -77,6 +80,8 @@ class deckOfCards {
                     const cardValue = determineCardValue(cardCode);
                     humanTotal += cardValue;
                     humanTotalBox.innerHTML = humanTotal;
+                    humanBustLogic(humanTotal);
+                    determineWinner();    
                 } else {
                     renderCard(card, 'computer');
                     computerCards.push(cardCode);
@@ -84,6 +89,7 @@ class deckOfCards {
                     computerTotal += cardValue;
                     computerTotalBox.innerHTML = computerTotal;
                     computerHoldLogic(computerTotal);
+                    determineWinner();    
                 }
             }else {
                 throw new Error('drawCard request failed!, no response.');
@@ -124,7 +130,6 @@ const renderCard = (newCard, player) => {
         computerCardContainer.appendChild(img)
         return;
     }
-    
 };
 
 const determineCardValue = (code) => {
@@ -145,27 +150,94 @@ const determineCardValue = (code) => {
 const computerHoldLogic = (currentTotal) => {
     const diff = 21 - currentTotal;
     if (currentTotal > 21) {
-        computerMessageBox.innerHTML = 'Computer BUST!'
-        computerMessageBox.style.color = 'red'
+        computerMessageBox.innerHTML = 'Computer BUST!';
+        computerMessageBox.style.color = 'red';
+        computerBust = true;
         return;
     }
-    if (diff < 5) {
-        computerMessageBox.innerHTML = 'Computer HOLDS!'
-        computerMessageBox.style.color = 'red'
-
+    if (diff < 6 && computerTotal >= humanTotal) {
+        computerMessageBox.innerHTML = 'Computer HOLDS!';
+        computerMessageBox.style.color = 'red';
         computerHolds = true;
+        globalMessageBox.innerHTML = ' The computer holds! Press draw card button to draw a card.';
+
     }
 };
 
-const human = new deckOfCards();
-const computer = new deckOfCards();
-
-shuffleButton.onclick = function() {
-    if(activeDeckID) {
-        human.reshuffleDeck();
-    } 
-    else {human.generateDeckId();
+const humanBustLogic = (currentTotal) => {
+    if(currentTotal > 21) {
+        humanBust = true;
+        humanMessageBox.innerHTML = 'You BUST!';
+        humanMessageBox.style.color = 'red';
     }
+};
+const determineWinner = () => {
+    //TODO: finish function
+    if(computerBust === true && humanBust === false) {
+        renderWinner('human');
+        winner = 'human';
+    }
+    else if(humanBust === true && computerBust === false) {
+        renderWinner('computer');
+        winner = 'computer';
+    }
+    else if(computerBust === true && humanBust === true) {
+        renderWinner('draw');
+        winner = 'draw';
+
+    }
+    else if(computerHolds === true && humanHolds === false) {
+        if(humanTotal > computerTotal) {
+            renderWinner('human');
+            winner = 'human';
+        }
+    }
+    // TODO: Fix bug in this if block!
+    else if(computerHolds === true && humanHolds === true) {
+        if(humanTotal === computerTotal) {
+            renderWinner('draw');
+            winner = 'draw';
+        }
+        else if(humanTotal > computerTotal) {
+            renderWinner('human');
+            winner = 'human';
+
+        } else {
+            renderWinner('computer');
+            winner = 'computer';
+        }
+    }
+    else if(humanHolds === true && computerHolds === false) {
+        if(computerTotal > humanTotal) {
+            renderWinner('computer');
+            winner = 'computer';
+        }
+    }
+
+};
+
+const renderWinner = (result) => {
+    if(result === 'draw') {
+        globalMessageBox.innerHTML = 'The game has ended in a draw!  Select new game to play again.'
+    }
+    else if (result === 'human') {
+        globalMessageBox.innerHTML = 'Congratulations You Win! Select new game to play again.'
+        humanMessageBox.innerHTML = 'WINNER!';
+        humanMessageBox.style.color = 'red';
+
+        
+
+    } else {
+        globalMessageBox.innerHTML = 'The Computer Wins! Select new game to play again.'
+        computerMessageBox.innerHTML = 'WINNER';
+        computerMessageBox.style.color = 'red';
+
+    }
+    drawButton.style.visibility = 'hidden';
+    holdButton.style.visibility = 'hidden';
+}
+
+const reset = () => {
     humanCardContainer.innerHTML = '';
     computerCardContainer.innerHTML = '';
     humanTotalBox.innerHTML = 0;
@@ -174,24 +246,58 @@ shuffleButton.onclick = function() {
     computerTotal = 0;
     drawButton.style.visibility = 'visible';
     holdButton.style.visibility = 'hidden';
-    computerMessageBox.style.color = 'white'
-    computerMessageBox.innerHTML = 'Computer Message Box';
-
+    computerMessageBox.style.color = 'white';
+    humanMessageBox.style.color = 'white';
+    computerMessageBox.innerHTML = '...';
+    humanMessageBox.innerHTML = '...';
+    globalMessageBox.innerHTML = 'Press draw card to continue...';
     computerHolds = false;
     humanHolds = false;
+    computerBust = false;
+    humanBust = false;
+    winner = '';
+};
+
+const human = new DeckOfCards();
+const computer = new DeckOfCards();
+
+shuffleButton.onclick = function() {
+    if(activeDeckID) {
+        human.reshuffleDeck();
+    } 
+    else {human.generateDeckId();
+    }
+    reset();
 }
 
 drawButton.onclick = function() {
     if (computerHolds) {
         human.drawCard('human');
+    } else if (humanHolds) {
+        computer.drawCard('computer');
+        globalMessageBox.innerHTML = 'Press draw card button to draw for the computer';
     } else {
         human.drawCard('human');
         computer.drawCard('computer');
     } 
-    holdButton.style.visibility = 'visible';     
+    holdButton.style.visibility = 'visible'; 
+    globalMessageBox.innerHTML = 'Press draw card or hold to continue...';
+
+    determineWinner();    
 }
 
-/* holdButton.onclick = function() {
+holdButton.onclick = function() {
+    humanHolds = true;
     humanMessageBox.innerHTML = 'You HOLD!';
     humanMessageBox.style.color = 'red';
-} */
+    determineWinner();
+    if(winner === '') {
+        globalMessageBox.innerHTML = 'Press draw card button to draw for the computer';
+        console.log(winner);
+        if(!computerHolds) {
+            computer.drawCard('computer');
+        }
+    }
+    
+       
+}
