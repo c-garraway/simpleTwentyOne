@@ -1,9 +1,3 @@
-// API information
-const startDrawURL = 'https://deckofcardsapi.com/api/deck/';
-const endDrawURL = '/draw/?count=1';
-
-const shuffleURL = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
-
 // needed page elements
 const drawButton = document.querySelector('#drawButton');
 const shuffleButton = document.querySelector('#reshuffleButton');
@@ -11,6 +5,8 @@ const holdButton = document.querySelector('#holdButton')
 const globalMessageBox = document.querySelector('#messageBox');
 const humanCardContainer = document.querySelector('#humanCardContainer');
 const computerCardContainer = document.querySelector('#computerCardContainer');
+const prizeBoxTitle = document.querySelector('#prizeBoxTitle');
+const prizeBox = document.querySelector('#prizeBox');
 
 const humanTotalBox = document.querySelector('#humanCardTotal');
 const computerTotalBox = document.querySelector('#computerCardTotal');
@@ -122,7 +118,7 @@ const renderCard = (newCard, player) => {
     const img = document.createElement('img');
     img.src = newCard;
     img.style.padding = '5px';
-    img.style.width = '25%';
+    img.style.width = '75px';
     if (player === 'human') {
         humanCardContainer.appendChild(img);
         return;
@@ -150,14 +146,14 @@ const determineCardValue = (code) => {
 const computerHoldLogic = (currentTotal) => {
     const diff = 21 - currentTotal;
     if (currentTotal > 21) {
-        computerMessageBox.innerHTML = 'Computer BUST!';
-        computerMessageBox.style.color = 'red';
+        computerMessageBox.innerHTML = 'Computer is BUST!';
+        computerMessageBox.style.color = 'yellow';
         computerBust = true;
         return;
     }
     if (diff < 6 && computerTotal >= humanTotal) {
         computerMessageBox.innerHTML = 'Computer HOLDS!';
-        computerMessageBox.style.color = 'red';
+        computerMessageBox.style.color = 'yellow';
         computerHolds = true;
         globalMessageBox.innerHTML = ' The computer holds! Press draw card button to draw a card.';
 
@@ -167,12 +163,11 @@ const computerHoldLogic = (currentTotal) => {
 const humanBustLogic = (currentTotal) => {
     if(currentTotal > 21) {
         humanBust = true;
-        humanMessageBox.innerHTML = 'You BUST!';
-        humanMessageBox.style.color = 'red';
+        humanMessageBox.innerHTML = 'You are BUST!';
+        humanMessageBox.style.color = 'yellow';
     }
 };
 const determineWinner = () => {
-    //TODO: finish function
     if(computerBust === true && humanBust === false) {
         renderWinner('human');
         winner = 'human';
@@ -192,7 +187,6 @@ const determineWinner = () => {
             winner = 'human';
         }
     }
-    // TODO: Fix bug in this if block!
     else if(computerHolds === true && humanHolds === true) {
         if(humanTotal === computerTotal) {
             renderWinner('draw');
@@ -221,17 +215,17 @@ const renderWinner = (result) => {
         globalMessageBox.innerHTML = 'The game has ended in a draw!  Select new game to play again.'
     }
     else if (result === 'human') {
+        globalMessageBox.style.color = 'yellow'
         globalMessageBox.innerHTML = 'Congratulations You Win! Select new game to play again.'
         humanMessageBox.innerHTML = 'WINNER!';
-        humanMessageBox.style.color = 'red';
-
-        
-
+        humanMessageBox.style.color = 'yellow';
+        fetchPrize();
+        prizeBoxTitle.style.display = 'block'
+        prizeBox.style.display = 'block'
     } else {
         globalMessageBox.innerHTML = 'The Computer Wins! Select new game to play again.'
         computerMessageBox.innerHTML = 'WINNER';
-        computerMessageBox.style.color = 'red';
-
+        computerMessageBox.style.color = 'yellow';
     }
     drawButton.style.visibility = 'hidden';
     holdButton.style.visibility = 'hidden';
@@ -246,10 +240,13 @@ const reset = () => {
     computerTotal = 0;
     drawButton.style.visibility = 'visible';
     holdButton.style.visibility = 'hidden';
+    prizeBoxTitle.style.display = 'none'
+    prizeBox.style.display = 'none'
     computerMessageBox.style.color = 'white';
     humanMessageBox.style.color = 'white';
     computerMessageBox.innerHTML = '...';
     humanMessageBox.innerHTML = '...';
+    globalMessageBox.style.color = 'white'
     globalMessageBox.innerHTML = 'Press draw card to continue...';
     computerHolds = false;
     humanHolds = false;
@@ -282,14 +279,13 @@ drawButton.onclick = function() {
     } 
     holdButton.style.visibility = 'visible'; 
     globalMessageBox.innerHTML = 'Press draw card or hold to continue...';
-
     determineWinner();    
 }
 
 holdButton.onclick = function() {
     humanHolds = true;
     humanMessageBox.innerHTML = 'You HOLD!';
-    humanMessageBox.style.color = 'red';
+    humanMessageBox.style.color = 'yellow';
     determineWinner();
     if(winner === '') {
         globalMessageBox.innerHTML = 'Press draw card button to draw for the computer';
@@ -297,7 +293,24 @@ holdButton.onclick = function() {
         if(!computerHolds) {
             computer.drawCard('computer');
         }
+    }   
+}
+
+const fetchPrize = async () => {
+    const url = 'https://icanhazdadjoke.com';
+    try {
+        const response = await fetch(url, {
+            headers: {
+                Accept: "application/json",
+            },
+        });
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            prizeBox.innerHTML = jsonResponse.joke;
+        }
+        throw new Error('fetchPrize request failed!');
     }
-    
-       
+    catch (error) {
+        console.log(error);
+    }
 }
