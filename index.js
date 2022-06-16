@@ -7,12 +7,10 @@ const humanCardContainer = document.querySelector('#humanCardContainer');
 const computerCardContainer = document.querySelector('#computerCardContainer');
 const prizeBoxTitle = document.querySelector('#prizeBoxTitle');
 const prizeBox = document.querySelector('#prizeBox');
-
 const humanTotalBox = document.querySelector('#humanCardTotal');
 const computerTotalBox = document.querySelector('#computerCardTotal');
 const humanMessageBox = document.querySelector('#humanMessageBox');
 const computerMessageBox = document.querySelector('#computerMessageBox');
-
 
 let activeDeckID = '';
 let deckShuffled = false;
