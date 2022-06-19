@@ -17,22 +17,32 @@
         <h1>Simple Twenty One</h1>
     </div>
     <div id="bannerBoxes">
-        <p id="messageBox">Welcome, Select new game to start. The rules are listed at the bottom of the page.</p>
-        <p id="prizeBoxTitle">Your prize for winning this round is an amazing dad joke!</p>
-        <p id="prizeBox"></p>
+        <p id="messageBox">Welcome, Select new game to start. The rules are listed below.</p>
+        <div id="scoreBox">
+            <p>Wins: <span id="wins">0</span></p>
+            <p>Draws: <span id="draws">0</span></p>
+            <p>Losses: <span id="losses">0</span></p>
+        </div>
+        <div id="prizeBox"></div>
     </div>
     <div id="upperGameBody">
         <div id="humanContainer">
             <div class="messageBox" id="humanMessageBox">Waiting...</div>
             <div class="cardTotalTitle">your cards total</div>
             <div class="cardTotal" id="humanCardTotal">0</div>
-            <div class="cardContainer" id="humanCardContainer"></div>
+            <div class="cards">
+                <div class="cardContainer" id="humanCardContainer"></div>
+            </div>
+            
         </div>
         <div id="computerContainer">
             <div class="messageBox" id="computerMessageBox">Waiting...</div>
             <div class="cardTotalTitle">computer cards total</div>
             <div class="cardTotal" id="computerCardTotal">0</div>
-            <div class="cardContainer" id="computerCardContainer"></div>
+            <div class="cards">
+                <div class="cardContainer" id="computerCardContainer"></div>
+            </div>
+            
         </div>
     </div>
     <div id="lowerGameBody">
@@ -55,7 +65,7 @@
                 <li>The Ace card is worth one point.</li>
                 <li>All face cards are worth ten points.</li>
                 <li>Player closest to twenty one without going over wins.</li>
-                <li>Get a Prize if you win.</li>
+                <li>Win a round, get a prize!</li>
             </ol>
         </div>
     </div>

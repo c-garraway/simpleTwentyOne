@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* border: 1px solid black; */
 }
 body {
     background-color: #35654d;
@@ -15,16 +16,20 @@ body {
     font-size: 20px;
 }
 #bannerBoxes {
-    width: 50%;
+    width: 90%;
     margin: auto;
     text-align: center;
     font-size: 24px;
+}
+#scoreBox {
+    display: flex;
+    justify-content: space-between;
 }
 #upperGameBody {
     display: flex;
     border-bottom: 1px solid darkgoldenrod;
     border-top: 1px solid darkgoldenrod;
-    padding: 30px;
+    padding: 10px;
     margin-top: 30px;
 }
 #playerControls {
@@ -32,7 +37,7 @@ body {
     margin: 15px auto;
     text-align: center;
     text-transform: uppercase;
-    
+
 }
 #controlsTitle {
     text-align: center;
@@ -48,7 +53,9 @@ body {
     font-size: 20px;
 }
 #ruleTitle {
-    font-size: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight:bolder;
 }
 #reshuffleButton, #drawButton, #holdButton {
     display: inline;
@@ -69,22 +76,20 @@ body {
 #prizeBoxTitle, #prizeBox {
     display: none;
 }
-#prizeBox {
-    border: 5px solid white;
-    padding: 5px;
-    margin-top: 10px;
-    color: yellow;
-}
-.messageBox, .cardTotalTitle, .cardTotal, .cardContainer, #controlsTitle  {
+.messageBox, .cardTotalTitle, .cardTotal, .cardContainer, #controlsTitle {
     padding: 5px;
     font-weight:bolder;
 }
 #computerContainer, #humanContainer {
     width: 50%;
     min-height: 230px;
-    margin: 30px auto;
     text-align: center;
     text-transform: uppercase;
+}
+.cards {
+    display: flex;
+    justify-content: center;
+    height: 125px;
 }
 .cardTotal {
     font-size: xx-large;
@@ -98,4 +103,47 @@ button:hover {
 button:active {
     background-color: lightgoldenrodyellow;
 }
-/* TODO: add mobile options
+#prizeBox {
+    border: 5px solid white;
+    padding: 20px;
+    background-color: #f44336;
+    border-radius: 10px;
+    color: white;
+    display: none;
+    position: fixed;
+    opacity: .9;
+    transition: opacity 0.6s;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.cardContainer {
+    display: flex;
+}
+
+img {
+    margin-left: 2px;
+}
+#ruleTitle {
+    text-align: center;
+}
+
+@media only screen and (max-width: 580px) {
+    .cardContainer {
+        display: flex;
+        width: 90%;
+    }
+    .container {
+        flex: 1 0 0;
+        overflow-x: hidden;
+    }
+    .container:last-child {
+        flex: 0 0 auto;
+    }
+    img {
+        margin-left: 0px;
+    }
+    #messageBox {
+        height: 80px;
+    }
+}
