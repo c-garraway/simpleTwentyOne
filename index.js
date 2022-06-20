@@ -25,7 +25,7 @@ let computerHolds = false;
 let humanHolds = false;
 let computerBust = false;
 let humanBust = false;
-let delay = 150;
+let delay = 0;
 let wins = 0;
 let draws = 0;
 let losses = 0;
@@ -81,7 +81,7 @@ class DeckOfCards {
                     humanTotal += cardValue;
                     humanTotalBox.innerHTML = humanTotal;
                     humanBustLogic(humanTotal);
-                    determineWinner();   
+                    /* determineWinner(); */   
                 } else {
                     renderCard(card, 'computer');
                     computerCards.push(cardCode);
@@ -89,9 +89,12 @@ class DeckOfCards {
                     computerTotal += cardValue;
                     computerTotalBox.innerHTML = computerTotal;
                     computerHoldLogic(computerTotal);
-                    determineWinner();    
+                    /* determineWinner();   */  
                 }
-                /* determineWinner();  */
+                if (isGameFinished) {
+                    determineWinner();
+                };
+                
             }else {
                 throw new Error('drawCard request failed!, no response.');
             }
@@ -117,6 +120,25 @@ class DeckOfCards {
         }
     }
     
+};
+
+const isGameFinished = () => {
+    let humanFinished;
+    let computerFinished;
+    if(humanBust === true || humanHolds === true) {
+        humanFinished = true;
+        console.log(humanFinished);
+    }
+    if(computerBust === true || computerHolds === true) {
+        computerFinished = true;
+        console.log(computerFinished);
+
+    }
+    if(humanFinished === true && computerFinished === true) {
+        return true;
+    } else {
+        return false;
+    }
 };
 
 const renderCard = (newCard, player) => {
@@ -294,14 +316,18 @@ drawButton.onclick = function() {
     } 
     holdButton.style.visibility = 'visible'; 
     globalMessageBox.innerHTML = 'Press draw card or hold to continue...';
-    determineWinner();    
+    if (isGameFinished) {
+        determineWinner();
+    };   
 }
 
 holdButton.onclick = function() {
     humanHolds = true;
     humanMessageBox.innerHTML = 'You HOLD!';
     humanMessageBox.style.color = 'yellow';
-    determineWinner();
+    if (isGameFinished) {
+        determineWinner();
+    };
     if(winner === '') {
         globalMessageBox.innerHTML = 'Press draw card button to draw for the computer';
         console.log(winner);
