@@ -25,10 +25,12 @@ let computerHolds = false;
 let humanHolds = false;
 let computerBust = false;
 let humanBust = false;
-let delay = 0;
+let delay = 500;
 let wins = 0;
 let draws = 0;
 let losses = 0;
+let humanFinished = false;
+let computerFinished = false;
 
 // DeckOfCards API calls TODO: stream line drawCard method
 class DeckOfCards {
@@ -81,7 +83,9 @@ class DeckOfCards {
                     humanTotal += cardValue;
                     humanTotalBox.innerHTML = humanTotal;
                     humanBustLogic(humanTotal);
-                    /* determineWinner(); */   
+                    if(computerFinished) {
+                        determineWinner();
+                    } 
                 } else {
                     renderCard(card, 'computer');
                     computerCards.push(cardCode);
@@ -89,11 +93,10 @@ class DeckOfCards {
                     computerTotal += cardValue;
                     computerTotalBox.innerHTML = computerTotal;
                     computerHoldLogic(computerTotal);
-                    /* determineWinner();   */  
+                    if(humanFinished) {
+                        determineWinner();
+                    }
                 }
-                if (isGameFinished) {
-                    determineWinner();
-                };
                 
             }else {
                 throw new Error('drawCard request failed!, no response.');
@@ -122,24 +125,31 @@ class DeckOfCards {
     
 };
 
-const isGameFinished = () => {
-    let humanFinished;
-    let computerFinished;
+
+
+const isHumanFinished = () => {
     if(humanBust === true || humanHolds === true) {
         humanFinished = true;
-        console.log(humanFinished);
-    }
+        return humanFinished;
+    };
+};
+
+const isComputerFinished = () => {
     if(computerBust === true || computerHolds === true) {
         computerFinished = true;
-        console.log(computerFinished);
+        return computerFinished;
+    };
+};
 
-    }
+/* const isGameFinished = () => {
+    isComputerFinished();
+    isHumanFinished();
     if(humanFinished === true && computerFinished === true) {
         return true;
     } else {
         return false;
     }
-};
+}; */
 
 const renderCard = (newCard, player) => {
     const container = document.createElement('div');
@@ -180,12 +190,14 @@ const computerHoldLogic = (currentTotal) => {
         computerMessageBox.innerHTML = 'Computer is BUST!';
         computerMessageBox.style.color = 'yellow';
         computerBust = true;
+        computerFinished = true;
         return;
     }
     if (diff < 6 && computerTotal >= humanTotal) {
         computerMessageBox.innerHTML = 'Computer HOLDS!';
         computerMessageBox.style.color = 'yellow';
         computerHolds = true;
+        computerFinished = true;
         globalMessageBox.innerHTML = ' The computer holds! Press draw card button to draw a card.';
     }
 };
@@ -193,6 +205,7 @@ const computerHoldLogic = (currentTotal) => {
 const humanBustLogic = (currentTotal) => {
     if(currentTotal > 21) {
         humanBust = true;
+        humanFinished = true;
         humanMessageBox.innerHTML = 'You are BUST!';
         humanMessageBox.style.color = 'yellow';
     }
@@ -289,6 +302,8 @@ const reset = () => {
     computerBust = false;
     humanBust = false;
     winner = '';
+    humanFinished = false;
+    computerFinished = false;
 };
 
 const human = new DeckOfCards();
@@ -316,16 +331,14 @@ drawButton.onclick = function() {
     } 
     holdButton.style.visibility = 'visible'; 
     globalMessageBox.innerHTML = 'Press draw card or hold to continue...';
-    if (isGameFinished) {
-        determineWinner();
-    };   
 }
 
 holdButton.onclick = function() {
     humanHolds = true;
+    humanFinished = true;
     humanMessageBox.innerHTML = 'You HOLD!';
     humanMessageBox.style.color = 'yellow';
-    if (isGameFinished) {
+    if (isComputerFinished) {
         determineWinner();
     };
     if(winner === '') {
