@@ -14,6 +14,7 @@ body {
     margin: 10px 0px;
     font-family: Secular One;
     font-size: 20px;
+    color: white;
 }
 #bannerBoxes {
     width: 90%;
@@ -73,9 +74,6 @@ body {
     letter-spacing: 1px;
     padding: 0px 10px;
 }
-#drawButton, #holdButton {
-    visibility: hidden;
-}
 #prizeBoxTitle, #prizeBox {
     display: none;
 }
@@ -100,9 +98,9 @@ body {
 button {
     cursor: pointer;
 }
-button:hover {
+/* button:hover {
     background-color: lightgray;
-}
+} */
 button:active {
     background-color: lightgoldenrodyellow;
 }
@@ -149,4 +147,5 @@ img {
     #globalMessageBox {
         height: 80px;
     }
+
 }

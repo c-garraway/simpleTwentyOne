@@ -312,8 +312,8 @@ const renderWinner = (result) => {
         losses += 1;
         lossBox.innerHTML = losses;
     }
-    drawButton.style.visibility = 'hidden';
-    holdButton.style.visibility = 'hidden';
+    drawButton.setAttribute('disabled', '');
+    holdButton.setAttribute('disabled', '');
 }
 
 const reset = () => {
@@ -323,8 +323,8 @@ const reset = () => {
     computerTotalBox.innerHTML = 0;
     humanTotal = 0;
     computerTotal = 0;
-    drawButton.style.visibility = 'visible';
-    holdButton.style.visibility = 'hidden';
+    drawButton.removeAttribute('disabled');
+    holdButton.setAttribute('disabled', '');
     prizeBox.style.display = 'none'
     computerMessageBox.style.color = 'white';
     humanMessageBox.style.color = 'white';
@@ -356,7 +356,7 @@ drawButton.onclick = function() {
         humanPlayer.drawCard();
         computerDrawLogic();
     } 
-    holdButton.style.visibility = 'visible'; 
+    holdButton.removeAttribute('disabled');; 
     globalMessageBox.innerHTML = 'Press draw card or hold to continue...';
 }
 
@@ -365,7 +365,8 @@ holdButton.onclick = function() {
     humanFinished = true;
     humanMessageBox.innerHTML = 'You HOLD!';
     humanMessageBox.style.color = 'burlywood';
-    holdButton.style.visibility = 'hidden';
+    holdButton.setAttribute('disabled', '');
+    drawButton.setAttribute('disabled', '');
     if (isComputerFinished) {
         determineWinner();
     };
