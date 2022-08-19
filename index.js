@@ -160,16 +160,14 @@ const humanPlayer = new Human();
 const computerPlayer = new Computer();
 
 const isHumanFinished = () => {
-    if(humanBust === true || humanHolds === true) {
+    if(humanBust === true || humanHolds === true || winner === 'human') {
         humanFinished = true;
-        return humanFinished;
     };
 };
 
 const isComputerFinished = () => {
-    if(computerBust === true || computerHolds === true) {
+    if(computerBust === true || computerHolds === true || winner === 'computer') {
         computerFinished = true;
-        return computerFinished;
     };
 };
 
@@ -226,14 +224,18 @@ const computerHoldLogic = (currentTotal) => {
 const computerDrawLogic = () => {
     isComputerFinished();
     isHumanFinished();
-    if (humanFinished === false && computerFinished === false) {
-        setTimeout(computerPlayer.drawCard, delay);
-    };
-    if (humanFinished === true && computerFinished === false) {
-        computerMessageBox.innerHTML = 'computer drawing...';
-        computerMessageBox.style.color = 'burlywood'
-        setTimeout(computerPlayer.drawCard, delay);
-        computerBounce();
+    console.log(`Computer Finished: ${computerFinished}`);
+    console.log(`Human Finished: ${humanFinished}`)
+    if (computerFinished === false) {
+        if (humanFinished === false) {
+            setTimeout(computerPlayer.drawCard, delay);
+        };
+        if (humanFinished === true) {
+            computerMessageBox.innerHTML = 'computer drawing...';
+            computerMessageBox.style.color = 'burlywood'
+            setTimeout(computerPlayer.drawCard, delay);
+            computerBounce();
+        }
     }
 }
 
@@ -249,6 +251,7 @@ const humanBustLogic = (currentTotal) => {
         humanMessageBox.style.color = 'burlywood';
     }
 };
+
 
 const determineWinner = () => {
     if(computerBust === true && humanBust === false) {
