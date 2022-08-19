@@ -60,7 +60,7 @@ class DeckOfCards {
             if (response.ok) {
                 const jsonResponse = await response.json();
                 activeDeckID = jsonResponse.deck_id;
-                console.log(activeDeckID);
+                /* console.log(activeDeckID); */
             }else {
                 throw new Error('generateDeckId request failed!, no response.');
             }
@@ -76,7 +76,7 @@ class DeckOfCards {
             if (response.ok) {
                 const jsonResponse = await response.json();
                 const shuffled = jsonResponse.shuffled;
-                console.log(activeDeckID, shuffled);
+                /* console.log(activeDeckID, shuffled); */
             }else {
                 throw new Error('reshuffleDeck request failed!, no response.');
             }
@@ -99,7 +99,7 @@ class Human extends DeckOfCards {
                 const jsonResponse = await response.json();
                 const card = jsonResponse.cards[0].image;
                 const cardCode = jsonResponse.cards[0].code;
-                console.log(`${this.name}, ${card}, ${cardCode}`);
+                /* console.log(`${this.name}, ${card}, ${cardCode}`); */
                 
                 renderCard(card, this.name);
                 humanCards.push(cardCode);
@@ -134,7 +134,7 @@ class Computer extends DeckOfCards {
                 const jsonResponse = await response.json();
                 const card = jsonResponse.cards[0].image;
                 const cardCode = jsonResponse.cards[0].code;
-                console.log(`${this.name}, ${card}, ${cardCode}`);
+                /* console.log(`${this.name}, ${card}, ${cardCode}`); */
                 
                 renderCard(card, this.name);
                 computerCards.push(cardCode);
@@ -224,8 +224,8 @@ const computerHoldLogic = (currentTotal) => {
 const computerDrawLogic = () => {
     isComputerFinished();
     isHumanFinished();
-    console.log(`Computer Finished: ${computerFinished}`);
-    console.log(`Human Finished: ${humanFinished}`)
+    /* console.log(`Computer Finished: ${computerFinished}`);
+    console.log(`Human Finished: ${humanFinished}`) */
     if (computerFinished === false) {
         if (humanFinished === false) {
             setTimeout(computerPlayer.drawCard, delay);
