@@ -2,32 +2,51 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* border: 1px solid black; */
 }
 body {
-    background-color: #35654d;
-    color: white;
+    background-color: rgb(4, 24, 10);
     font-family: Abel;
+    margin: auto;
+    border: 1px solid black
+}
+#gameBody{
+    color: white;
+    width: 95%;
+    margin: 20px auto;
+    background-color: #35654d;
+    border-radius: 10px;
+    padding: 5px;
 }
 #title {
     text-align: center;
-    margin: 10px 0px;
     font-family: Secular One;
     font-size: 20px;
     color: white;
+    background-color: rgb(99, 122, 99);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 #bannerBoxes {
-    width: 90%;
+    width: 100%;
     margin: auto;
     text-align: center;
     font-size: 24px;
 }
 #globalMessageBox {
-    color: burlywood;
+    display: flex;
+    color: black;
+    height: 62px;
+    background-color: rgb(247, 238, 223);
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight:600;
 }
 #scoreBox {
     display: flex;
     justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 #upperGameBody {
     display: flex;
@@ -49,12 +68,14 @@ body {
 #controlButtons {
     display: flex;
     justify-content: space-between;
+    
 }
 #rulesBox {
     width: 320px;
     margin: 0 auto;
     height: 200px;
     font-size: 20px;
+    color: white;
 }
 #ruleTitle {
     font-size: 16px;
@@ -73,9 +94,7 @@ body {
     font-weight: 100;
     letter-spacing: 1px;
     padding: 0px 10px;
-}
-#prizeBoxTitle, #prizeBox {
-    display: none;
+    color: black;
 }
 .messageBox, .cardTotalTitle, .cardTotal, .cardContainer, #controlsTitle {
     padding: 5px;
@@ -87,10 +106,11 @@ body {
     text-align: center;
     text-transform: uppercase;
 }
-.cards {
+.cardContainer {
     display: flex;
     justify-content: center;
     height: 125px;
+    margin: 5px;
 }
 .cardTotal {
     font-size: xx-large;
@@ -98,9 +118,7 @@ body {
 button {
     cursor: pointer;
 }
-/* button:hover {
-    background-color: lightgray;
-} */
+
 button:active {
     background-color: lightgoldenrodyellow;
 }
@@ -111,22 +129,28 @@ button:active {
     border-radius: 10px;
     color: white;
     display: none;
-    position: fixed;
+    position:fixed;
     opacity: .9;
     transition: opacity 0.6s;
-    width: 90%;
-    margin: 0 auto;
+    width: 75%;
+    
 }
 
 .cardContainer {
     display: flex;
 }
-
-img {
-    margin-left: 2px;
-}
 #ruleTitle {
     text-align: center;
+}
+#lowerGameBody{
+    background-color: rgb(99, 122, 99);
+    padding: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#pbAlign{
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (max-width: 580px) {

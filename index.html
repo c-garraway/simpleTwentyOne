@@ -13,62 +13,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Secular+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="title">
-        <h1>Simple Twenty One</h1>
-    </div>
-    <div id="bannerBoxes">
-        <p id="globalMessageBox">Welcome, Select new game to start. The rules are listed below.</p>
-        <div id="scoreBox">
-            <p>Wins: <span id="wins">0</span></p>
-            <p>Draws: <span id="draws">0</span></p>
-            <p>Losses: <span id="losses">0</span></p>
+    <div id="gameBody">
+        <div id="title">
+            <h1>Simple Twenty One</h1>
         </div>
-        <div id="prizeBox"></div>
-    </div>
-    <div id="upperGameBody">
-        <div id="humanContainer">
-            <div class="messageBox" id="humanMessageBox">Waiting...</div>
-            <div class="cardTotalTitle">your cards total</div>
-            <div class="cardTotal" id="humanCardTotal">0</div>
-            <div class="cards">
+        <div id="bannerBoxes">
+            <p id="globalMessageBox">Welcome, Select new game to start. The rules are listed below.</p>
+            <div id="scoreBox">
+                <p>Wins: <span id="wins">0</span></p>
+                <p>Draws: <span id="draws">0</span></p>
+                <p>Losses: <span id="losses">0</span></p>
+            </div>
+            <div id="pbAlign">
+                <div id="prizeBox"></div>
+            </div>
+            
+        </div>
+        <div id="upperGameBody">
+            <div id="humanContainer">
+                <div class="messageBox" id="humanMessageBox">Waiting...</div>
+                <div class="cardTotalTitle">your cards total</div>
+                <div class="cardTotal" id="humanCardTotal">0</div>
+                <!-- <div class="cards"></div> -->
                 <div class="cardContainer" id="humanCardContainer"></div>
             </div>
-            
-        </div>
-        <div id="computerContainer">
-            <div class="messageBox" id="computerMessageBox">Waiting...</div>
-            <div class="cardTotalTitle">computer cards total</div>
-            <div class="cardTotal" id="computerCardTotal">0</div>
-            <div class="cards">
+            <div id="computerContainer">
+                <div class="messageBox" id="computerMessageBox">Waiting...</div>
+                <div class="cardTotalTitle">computer cards total</div>
+                <div class="cardTotal" id="computerCardTotal">0</div>
+                <!-- <div class="cards"></div> -->
                 <div class="cardContainer" id="computerCardContainer"></div>
             </div>
-            
+        </div>
+        <div id="lowerGameBody">
+            <div id="playerControls">
+                <div id="controlsTitle">
+                    <p>Player Controls</p>
+                </div>
+                <div id="controlButtons">
+                    <button id="reshuffleButton">New Game</button>
+                    <br>
+                    <button id="drawButton" disabled>Draw Card</button>
+                    <br>
+                    <button id="holdButton" disabled>Hold</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div id="lowerGameBody">
-        <div id="playerControls">
-            <div id="controlsTitle">
-                <p>Player Controls</p>
-            </div>
-            <div id="controlButtons">
-                <button id="reshuffleButton">New Game</button>
-                <br>
-                <button id="drawButton" disabled>Draw Card</button>
-                <br>
-                <button id="holdButton" disabled>Hold</button>
-            </div>
-        </div>
-        <div id="rulesBox">
-            <p id="ruleTitle">Rules</p>
-            <ol>
-                <li>This game uses only one deck of cards.</li>
-                <li>The Ace card is worth one point.</li>
-                <li>All face cards are worth ten points.</li>
-                <li>Player closest to twenty one without going over wins.</li>
-                <li>Win a round, get a prize!</li>
-            </ol>
-        </div>
+    <div id="rulesBox">
+        <p id="ruleTitle">Rules</p>
+        <ol>
+            <li>This game uses only one deck of cards.</li>
+            <li>The Ace card is worth one point.</li>
+            <li>All face cards are worth ten points.</li>
+            <li>Player closest to twenty one without going over wins.</li>
+            <li>Win a round, get a prize!</li>
+        </ol>
     </div>
-   
 </body>
 </html>
