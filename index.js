@@ -160,16 +160,14 @@ const humanPlayer = new Human();
 const computerPlayer = new Computer();
 
 const isHumanFinished = () => {
-    if(humanBust === true || humanHolds === true) {
+    if(humanBust === true || humanHolds === true || winner === 'human') {
         humanFinished = true;
-        return humanFinished;
     };
 };
 
 const isComputerFinished = () => {
-    if(computerBust === true || computerHolds === true) {
+    if(computerBust === true || computerHolds === true || winner === 'computer') {
         computerFinished = true;
-        return computerFinished;
     };
 };
 
@@ -226,14 +224,18 @@ const computerHoldLogic = (currentTotal) => {
 const computerDrawLogic = () => {
     isComputerFinished();
     isHumanFinished();
-    if (humanFinished === false && computerFinished === false) {
-        setTimeout(computerPlayer.drawCard, delay);
-    };
-    if (humanFinished === true && computerFinished === false) {
-        computerMessageBox.innerHTML = 'computer drawing...';
-        computerMessageBox.style.color = 'burlywood'
-        setTimeout(computerPlayer.drawCard, delay);
-        computerBounce();
+    console.log(`Computer Finished: ${computerFinished}`);
+    console.log(`Human Finished: ${humanFinished}`)
+    if (computerFinished === false) {
+        if (humanFinished === false) {
+            setTimeout(computerPlayer.drawCard, delay);
+        };
+        if (humanFinished === true) {
+            computerMessageBox.innerHTML = 'computer drawing...';
+            computerMessageBox.style.color = 'burlywood'
+            setTimeout(computerPlayer.drawCard, delay);
+            computerBounce();
+        }
     }
 }
 
@@ -249,6 +251,7 @@ const humanBustLogic = (currentTotal) => {
         humanMessageBox.style.color = 'burlywood';
     }
 };
+
 
 const determineWinner = () => {
     if(computerBust === true && humanBust === false) {
@@ -292,25 +295,33 @@ const determineWinner = () => {
     }
 };
 
+let renderWinnerComplete = false
+
 const renderWinner = (result) => {
-    if(result === 'draw') {
-        globalMessageBox.innerHTML = 'The game has ended in a draw!  Select new game to play again.'
-        draws += 1;
-        drawBox.innerHTML = draws;
-    }
-    else if (result === 'human') {
-        globalMessageBox.innerHTML = 'Congratulations You Win! Enjoy this amazing dad joke as your prize.'
-        humanMessageBox.innerHTML = 'WINNER!';
-        humanMessageBox.style.color = 'burlywood';
-        wins += 1;
-        winBox.innerHTML = wins;
-        setTimeout(fetchPrize, delay * 2);
-    } else {
-        globalMessageBox.innerHTML = 'The Computer Wins! Select new game to play again.'
-        computerMessageBox.innerHTML = 'WINNER';
-        computerMessageBox.style.color = 'burlywood';
-        losses += 1;
-        lossBox.innerHTML = losses;
+    if (renderWinnerComplete === false) {
+        if(result === 'draw') {
+            globalMessageBox.innerHTML = 'The game has ended in a draw!  Select new game to play again.'
+            draws += 1;
+            drawBox.innerHTML = draws;
+            renderWinnerComplete = true;
+        }
+        else if (result === 'human') {
+            globalMessageBox.innerHTML = 'Congratulations You Win! Enjoy this amazing dad joke as your prize.'
+            humanMessageBox.innerHTML = 'WINNER!';
+            humanMessageBox.style.color = 'burlywood';
+            wins += 1;
+            winBox.innerHTML = wins;
+            setTimeout(fetchPrize, delay * 2);
+            renderWinnerComplete = true;
+
+        } else {
+            globalMessageBox.innerHTML = 'The Computer Wins! Select new game to play again.'
+            computerMessageBox.innerHTML = 'WINNER';
+            computerMessageBox.style.color = 'burlywood';
+            losses += 1;
+            lossBox.innerHTML = losses;
+            renderWinnerComplete = true;
+        }
     }
     drawButton.setAttribute('disabled', '');
     holdButton.setAttribute('disabled', '');
@@ -338,6 +349,7 @@ const reset = () => {
     winner = '';
     humanFinished = false;
     computerFinished = false;
+    renderWinnerComplete = false;
 };
 
 shuffleButton.onclick = function() {
