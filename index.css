@@ -106,9 +106,14 @@ body {
     text-align: center;
     text-transform: uppercase;
 }
+.card  {  
+    --card-width: 75px;
+    margin-right: calc(30px - var(--card-width));
+    float: left;
+}
 .cardContainer {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     height: 125px;
     margin: 5px;
 }
@@ -137,8 +142,6 @@ button:active {
 }
 
 #closeBox {
-    /* text-align: right; */
-    /* background-color: black; */
     border: 1px solid white;
     border-radius: 10px;
     color: white;
@@ -147,7 +150,6 @@ button:active {
     width: 10%;
     margin: auto;
     margin-top: 15px;
-
 }
 
 .cardContainer {
@@ -168,16 +170,10 @@ button:active {
 }
 
 @media only screen and (max-width: 580px) {
-    .cardContainer {
-        display: flex;
-        width: 90%;
-    }
-    .container {
-        flex: 1 0 0;
-        overflow-x: hidden;
-    }
-    .container:last-child {
-        flex: 0 0 auto;
+    .card  {  
+        --card-width: 75px;
+        margin-right: calc(20px - var(--card-width));
+        float: left;
     }
     img {
         margin-left: 0px;
