@@ -48,12 +48,15 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
+#refresh {
+    font-size:medium;
+}
 #upperGameBody {
     display: flex;
     border-bottom: 1px solid burlywood;
     border-top: 1px solid burlywood;
     padding: 10px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 #playerControls {
     width: 80%;
@@ -89,12 +92,14 @@ body {
     margin: 5px;
     font-weight: bold;
     border-radius: 10px;
+    border: none;
     font-family: bebas neue;
     font-size: medium;
     font-weight: 100;
     letter-spacing: 1px;
     padding: 0px 10px;
     color: black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .messageBox, .cardTotalTitle, .cardTotal, .cardContainer, #controlsTitle {
     padding: 5px;
@@ -109,11 +114,10 @@ body {
 .card  {  
     --card-width: 75px;
     margin-right: calc(30px - var(--card-width));
-    float: left;
 }
 .cardContainer {
     display: flex;
-    justify-content: left;
+    justify-content:center;
     height: 125px;
     margin: 5px;
 }
@@ -125,7 +129,14 @@ button {
 }
 
 button:active {
-    background-color: lightgoldenrodyellow;
+    background-color: #35654d;
+    border: none;
+}
+
+button:disabled {
+    background-color: lightslategrey;
+    opacity: .3;
+
 }
 #prizeBox {
     border: 5px solid white;
@@ -147,7 +158,7 @@ button:active {
     color: white;
     font-weight: bold;
     cursor: pointer;
-    width: 10%;
+    width: 3ch;
     margin: auto;
     margin-top: 15px;
 }
@@ -173,13 +184,15 @@ button:active {
     .card  {  
         --card-width: 75px;
         margin-right: calc(20px - var(--card-width));
-        float: left;
     }
     img {
         margin-left: 0px;
     }
     #globalMessageBox {
         height: 80px;
+    }
+    .cardContainer {
+        justify-content: left;
     }
 
 }
