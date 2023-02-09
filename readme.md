@@ -4,7 +4,7 @@
 This is simplified version (human vs computer) of the classic card game Twenty One.
 
 ## Application URL
-### [c-garraway.github.io/simpleTwentyOne](https://c-garraway.github.io/simpleTwentyOne/)
+### [sto.cgprojects.dev](https://sto.cgprojects.dev/)
 
 ## Build Technologies
 This static web site project was built with the following technologies.
@@ -18,9 +18,11 @@ This static web site project was built with the following technologies.
 - Deck of Cards API: [deckofcardsapi.com](https://deckofcardsapi.com/)
 - Dad Jokes API: [icanhazdadjoke.com](https://icanhazdadjoke.com)
 
-## Hosting Service
+## Self Hosted
 
-- GitHub Pages
+- Host: [Linode](https://www.linode.com/) cloud VM
+- Web Server: [NGINX](https://www.nginx.com/)
+- Certificates: [Let's Encrypt](https://letsencrypt.org/) via [certbot](https://certbot.eff.org/)
 
 This is a portfolio project, built as a part of my Full Stack Web Development training course.
 
