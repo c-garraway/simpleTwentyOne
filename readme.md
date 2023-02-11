@@ -18,11 +18,9 @@ This static web site project was built with the following technologies.
 - Deck of Cards API: [deckofcardsapi.com](https://deckofcardsapi.com/)
 - Dad Jokes API: [icanhazdadjoke.com](https://icanhazdadjoke.com)
 
-## Self Hosted
+## Hosting Services
 
-- Host: [Linode](https://www.linode.com/) cloud VM
-- Web Server: [NGINX](https://www.nginx.com/)
-- Certificates: [Let's Encrypt](https://letsencrypt.org/) via [certbot](https://certbot.eff.org/)
+Self Hosted on a [Linode](https://www.linode.com/) cloud VM.
 
-This is a portfolio project, built as a part of my Full Stack Web Development training course.
+`This is a portfolio project, built as a part of my Full Stack Web Development training course.`
 
